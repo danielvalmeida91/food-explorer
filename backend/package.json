@@ -1,19 +1,25 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon ./src/server.js",
+    "migrate":"knex migrate:latest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Daniel Ventura de Almeida",
   "license": "ISC",
-  "dependencies": {
-    "fastify": "^4.13.0"
-  },
+  "description": "API desenvoldida para o Food Explorer",
   "devDependencies": {
     "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "knex": "^2.4.2",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.4"
   }
 }
