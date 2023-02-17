@@ -5,7 +5,7 @@ exports.up = knex =>
     table.text('email').notNull()
     table.text('password').notNull()
     table.text('status').default('user')
-    table.datetime('created_at').default(knex.fn.now())
+    table.timestamp('created_at').default(knex.fn.now())
     table.timestamp('updated_at').default(knex.fn.now())
   })
 
