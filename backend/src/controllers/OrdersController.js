@@ -77,51 +77,6 @@ class OrdersController {
     )
 
     return response.json({ ordersWithItems })
-
-    // async function getOrder(order_id) {
-    //   const filteredOrders = await knex('items_order').where({ order_id })
-    //   return filteredOrders ? filteredOrders : null
-    // }
-
-    // async function getOrdersToShow() {
-    //   const ordersToShow = []
-
-    //   for (const order of ordersId) {
-    //     const { id, user_id, ...rest } = order
-    //     const lastOrders = await getOrder(id)
-    //     ordersToShow.push({
-    //       id,
-    //       user_id,
-    //       lastOrders,
-    //       ...rest
-    //     })
-    //   }
-
-    //   return ordersToShow
-    // }
-
-    // const newOrders = await getOrdersToShow()
-    // console.log(newOrders)
-    // return
-
-    // async function getItemName(item_id) {
-    //   const itemName = await knex('items').where('id', item_id).first()
-    //   return itemName ? itemName : null
-    // }
-
-    // async function getOrdersWithItemName() {
-    //   const ordersWithItemName = []
-
-    //   for (const order of orders) {
-    //     const { id, item_id, ...rest } = order
-    //     const itemName = await getItemName(item_id)
-    //     ordersWithItemName.push({ id, item_id, itemName, ...rest })
-    //   }
-
-    //   return ordersWithItemName
-    // }
-
-    // return response.json(ordersToShow)
   }
 }
 
