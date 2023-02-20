@@ -2,9 +2,9 @@ exports.up = knex =>
   knex.schema.createTable('categories', table => {
     table.increments('id')
     table
-      .integer('dishe_id')
+      .integer('item_id')
       .references('id')
-      .inTable('dishes')
+      .inTable('items')
       .onDelete('CASCADE')
     table.text('name')
     table.timestamp('created_at').default(knex.fn.now())
