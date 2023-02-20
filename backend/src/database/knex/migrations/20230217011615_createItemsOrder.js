@@ -12,6 +12,7 @@ exports.up = knex =>
       .references('id')
       .inTable('orders')
       .onDelete('CASCADE')
+    table.decimal('quantity')
     table.decimal('value_unit')
     table.decimal('value_total')
     table.timestamp('created_at').default(knex.fn.now())
