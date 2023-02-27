@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100%;
 
   margin: 0 auto;
@@ -9,6 +9,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3.2rem;
 
   @media (min-width: 1024px) {
@@ -43,6 +44,17 @@ export const Form = styled.form`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     display: none;
+  }
+
+  > a {
+    font: ${({ theme }) => theme.FONTS.POPPINS100_MEDIUM};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    transition: all 0.3s;
+
+    &:hover {
+      filter: brightness(0.7);
+    }
   }
 
   @media (min-width: 1024px) {
@@ -88,19 +100,5 @@ export const Button = styled.button`
   }
   &:disabled {
     background: ${({ theme }) => theme.COLORS.TOMATO_400};
-  }
-`
-
-export const TextButton = styled.button`
-  border: none;
-  background: transparent;
-
-  font: ${({ theme }) => theme.FONTS.POPPINS100_MEDIUM};
-  color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
-  transition: all 0.3s;
-
-  &:hover {
-    filter: brightness(0.7);
   }
 `

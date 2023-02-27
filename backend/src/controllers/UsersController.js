@@ -6,9 +6,10 @@ class UsersController {
   async create(request, response) {
     const { name, email, password } = request.body
 
-    const userExists = await knex('users').where('email', email)
+    const userExists = await knex('users').where('email', email).first()
+    console.log(userExists)
 
-    if (!userExists) {
+    if (userExists) {
       throw new AppError('Este e-mail já está em uso.')
     }
 

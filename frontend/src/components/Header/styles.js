@@ -18,6 +18,12 @@ export const Container = styled.div`
     display: none;
   }
 
+  #signOut,
+  #menu {
+    border: none;
+    background: none;
+  }
+
   @media (min-width: 1440px) {
     > #menu,
     #ordersMobile {
@@ -106,5 +112,21 @@ export const Search = styled.div`
     font: ${({ theme }) => theme.FONTS.ROBOTO_SMALL};
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     background: transparent;
+  }
+`
+export const HeaderMenu = styled.div`
+  grid-area: header;
+
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+
+  padding: 6.6rem 0rem 2.8rem 2.8rem;
+
+  background: ${({ theme }) => theme.COLORS.DARK_700};
+  margin-bottom: 3.6rem;
+  > h2 {
+    font: ${({ theme }) => theme.FONTS.ROBOTO_SMALL};
+    font-size: 2.16rem;
   }
 `

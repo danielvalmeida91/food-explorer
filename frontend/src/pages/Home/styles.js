@@ -150,3 +150,38 @@ export const BannerTitle = styled.div`
     font: 400 1.2rem/140% 'Poppins';
   }
 `
+export const Menu = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  margin: 1.2rem auto;
+
+  display: grid;
+  grid-template-areas:
+    'header'
+    'content'
+    'footer';
+  grid-template-rows: 11.4rem auto;
+
+  position: absolute;
+
+  background: ${({ theme }) => theme.COLORS.DARK_400};
+`
+
+export const HeaderMenu = styled.div`
+  grid-area: header;
+
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+
+  padding: 6.6rem 0rem 2.8rem 2.8rem;
+
+  background: ${({ theme }) => theme.COLORS.DARK_700};
+  margin-bottom: 3.6rem;
+  > h2 {
+    font: ${({ theme }) => theme.FONTS.ROBOTO_SMALL};
+    font-size: 2.16rem;
+  }
+`
