@@ -4,11 +4,9 @@ export const Container = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1.1rem;
 
-  width: 16.2rem;
-  height: 3.2rem;
-
-  padding: 0.4rem 5.2rem;
+  padding: 1.6rem 3.3rem;
 
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
   background: ${({ theme }) => theme.COLORS.TOMATO_100};
@@ -20,13 +18,5 @@ export const Container = styled.button`
 
   &:hover {
     background: ${({ theme }) => theme.COLORS.TOMATO_200};
-  }
-  &:disabled {
-    background: ${({ theme }) => theme.COLORS.TOMATO_400};
-  }
-
-  @media (min-width: 1024px) {
-    width: 9.2rem;
-    height: 4.8rem;
   }
 `

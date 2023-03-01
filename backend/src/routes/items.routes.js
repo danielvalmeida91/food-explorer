@@ -14,13 +14,13 @@ const itemPicutureController = new ItemPictureController()
 
 itemsRoutes.use(ensureAuthenticated)
 
-itemsRoutes.post('/', itemsController.create)
+itemsRoutes.post('/', upload.single('picture'), itemsController.create)
 itemsRoutes.put('/:id', itemsController.update)
 itemsRoutes.get('/', itemsController.show)
 itemsRoutes.get('/:id', itemsController.index)
 itemsRoutes.delete('/:id', itemsController.delete)
 itemsRoutes.patch(
-  '/picture/:item_id',
+  '/picture',
   upload.single('picture'),
   itemPicutureController.update
 )

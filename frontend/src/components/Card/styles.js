@@ -10,7 +10,7 @@ export const Container = styled.div`
 
   text-align: center;
 
-  .heartFavorite {
+  .actionButton {
     position: absolute;
 
     top: 1.6rem;
@@ -44,7 +44,7 @@ export const Item = styled.div`
     color: ${({ theme }) => theme.COLORS.CAKE_200};
   }
 
-  > img {
+  img {
     width: 8.8rem;
     height: 8.8rem;
   }
@@ -62,7 +62,7 @@ export const Item = styled.div`
       font-size: 1.8rem;
     }
 
-    > img {
+    img {
       width: 17.6rem;
       height: 17.6rem;
     }
@@ -82,17 +82,13 @@ export const Item = styled.div`
       font: ${({ theme }) => theme.FONTS.ROBOTO_BIGGER};
     }
 
-    .amount {
-      font: ${({ theme }) => theme.FONTS.ROBOTO_BIGGER};
-    }
-
-    > img {
+    img {
       width: 26.4rem;
       height: 26.4rem;
     }
   }
   @media (min-width: 1440px) {
-    > img {
+    img {
       width: 38.9rem;
       height: 38.9rem;
     }
@@ -110,12 +106,4 @@ export const Controls = styled.div`
     flex-direction: row;
     margin-top: 1.5rem;
   }
-`
-
-export const Amount = styled.div`
-  gap: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: ${({ theme }) => theme.FONTS.ROBOTO_SMALL};
 `

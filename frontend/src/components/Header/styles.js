@@ -13,7 +13,7 @@ export const Container = styled.div`
 
   background: ${({ theme }) => theme.COLORS.DARK_700};
 
-  > #ordersDesktop,
+  > .ordersDesktop,
   #signOut {
     display: none;
   }
@@ -36,7 +36,7 @@ export const Container = styled.div`
       gap: 1.4rem;
     }
 
-    > #ordersDesktop {
+    > .ordersDesktop {
       display: flex;
     }
 

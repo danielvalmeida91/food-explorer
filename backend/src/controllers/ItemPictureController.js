@@ -19,7 +19,8 @@ class ItemPictureController {
       await diskStorage.deleteFile(item.picture)
     }
 
-    const filename = await diskStorage.saveFile(pictureFilename)
+    const filename = await diskStorage
+    saveFile(pictureFilename)
     item.picture = filename
 
     await knex('items').update(item).where('id', item_id)

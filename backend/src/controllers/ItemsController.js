@@ -1,9 +1,15 @@
+const DiskStorage = require('../providers/DiskStorage')
 const knex = require('../database/knex')
 const AppError = require('../utils/AppError')
 
 class ItemsController {
   async create(request, response) {
-    const { name, description, price, ingredients, categories } = request.body
+    const { name, description, price, ingredients, category } = request.body
+    const pictureFilename = request.file.filename
+
+    const diskStorage = new DiskStorage()
+
+    const filename = await diskStorage.saveFile(pictureFilename)
 
     if (!name || !description || !price) {
       throw new AppError('Todos os campos são obrigatórios.')
@@ -12,7 +18,9 @@ class ItemsController {
     const item_id = await knex('items').insert({
       name,
       description,
-      price
+      price,
+      category,
+      picture: filename
     })
 
     const ingredientsInsert = ingredients.map(ingredient => {
@@ -22,21 +30,19 @@ class ItemsController {
       }
     })
 
-    const categoriesInsert = categories.map(category => {
-      return {
-        item_id,
-        name: category
-      }
-    })
+    // const categoriesInsert = {
+    //   item_id,
+    //   name: category
+    // }
 
     await knex('ingredients').insert(ingredientsInsert)
-    await knex('categories').insert(categoriesInsert)
+    // await knex('categories').insert(categoriesInsert)
 
     return response.json({ message: 'Item cadastrado com sucesso!' })
   }
 
   async update(request, response) {
-    const { name, description, price } = request.body
+    const { name, description, price, category } = request.body
     const { id } = request.params
 
     const item = await knex('items').where('id', id).first()
@@ -48,19 +54,20 @@ class ItemsController {
     item.name = name ?? item.name
     item.description = description ?? item.description
     item.price = price ?? item.price
+    item.category = category ?? item.category
 
     await knex('items').update(item).where({ id })
 
     return response.json(item)
   }
 
-  async index(request, response) {
+  async show(request, response) {
     const item = await knex('items')
 
     return response.json(item)
   }
 
-  async show(request, response) {
+  async index(request, response) {
     const { id } = request.params
 
     const item = await knex('items').where('id', id).first()

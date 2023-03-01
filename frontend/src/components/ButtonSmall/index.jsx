@@ -1,10 +1,11 @@
 import { Container } from './styles'
 
-export function ButtonHeader({...rest}){
+export function ButtonSmall({ title, ...rest}){
   return(
     <Container
       {... rest}
     >
+      {title}
     </Container>
   )
 }
