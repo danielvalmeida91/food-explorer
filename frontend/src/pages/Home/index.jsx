@@ -58,9 +58,7 @@ export function Home(){
     setMenuMobile(menuMobile ? false : true);
   }
 
-  function handleDetails(itemId){
-    navigate(`/details/${itemId}`)
-  }
+
 
   return(
     <Container>

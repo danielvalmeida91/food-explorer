@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { Container, Title, Orders, OrderNotification, Search, HeaderMenu } from './styles'
 
@@ -18,6 +18,10 @@ export function Header({isMenu = false, openMenu}){
     signOut();
   }
 
+  function handleNewItem(){
+    navigate('/new')
+  }
+
   if(!isMenu){
     return(
       <Container>
@@ -27,12 +31,14 @@ export function Header({isMenu = false, openMenu}){
           </svg>
         </button>
 
-        <Title>
-          <svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.2304 0L21.8881 6.15327V18.4598L11.2304 24.6131L0.572592 18.4598V6.15327L11.2304 0Z" fill="#065E7C"/>
-          </svg>
-          food explorer<span>{user.status === 'user' ? '' : 'admin'}</span>
-        </Title>
+        <Link to="/">
+          <Title>
+            <svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.2304 0L21.8881 6.15327V18.4598L11.2304 24.6131L0.572592 18.4598V6.15327L11.2304 0Z" fill="#065E7C"/>
+            </svg>
+            food explorer<span>{user.status === 'user' ? '' : 'admin'}</span>
+          </Title>
+        </Link>
 
         <Search id="search">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +76,7 @@ export function Header({isMenu = false, openMenu}){
           )
         }
         {
-          user.status === 'admin' && <Button className="ordersDesktop">Novo Prato</Button>
+          user.status === 'admin' && <Button className="ordersDesktop" onClick={handleNewItem}>Novo Prato</Button>
         }
 
         <button id="signOut" onClick={handleSignOut}>

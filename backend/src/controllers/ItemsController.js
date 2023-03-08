@@ -4,12 +4,13 @@ const AppError = require('../utils/AppError')
 
 class ItemsController {
   async create(request, response) {
-    const { name, description, price, ingredients, category } = request.body
-    const pictureFilename = request.file.filename
+    const data = request.body.data
+    const { name, description, price, ingredients, category } = JSON.parse(data)
+    const picture = request.file.filename
 
     const diskStorage = new DiskStorage()
 
-    const filename = await diskStorage.saveFile(pictureFilename)
+    const filename = await diskStorage.saveFile(picture)
 
     if (!name || !description || !price) {
       throw new AppError('Todos os campos são obrigatórios.')
@@ -30,19 +31,15 @@ class ItemsController {
       }
     })
 
-    // const categoriesInsert = {
-    //   item_id,
-    //   name: category
-    // }
-
     await knex('ingredients').insert(ingredientsInsert)
-    // await knex('categories').insert(categoriesInsert)
 
-    return response.json({ message: 'Item cadastrado com sucesso!' })
+    return response.json('Item cadastrado com sucesso!')
   }
 
   async update(request, response) {
-    const { name, description, price, category } = request.body
+    const data = request.body.data
+    const picWasUpdated = request.body.picStatus
+    const { name, description, price, category, ingredients } = JSON.parse(data)
     const { id } = request.params
 
     const item = await knex('items').where('id', id).first()
@@ -51,12 +48,37 @@ class ItemsController {
       throw new AppError('Item não cadastrado')
     }
 
-    item.name = name ?? item.name
-    item.description = description ?? item.description
-    item.price = price ?? item.price
-    item.category = category ?? item.category
+    const diskStorage = new DiskStorage()
 
-    await knex('items').update(item).where({ id })
+    const filename = item.picture
+
+    if (picWasUpdated === false) {
+      const picture = request.file.filename
+      await diskStorage.deleteFile(item.picture)
+      filename = await diskStorage.saveFile(picture)
+    }
+
+    // return console.log(item, filename)
+    await knex('items').where({ id }).update({
+      name,
+      price,
+      description,
+      category,
+      picture: filename
+    })
+
+    if (ingredients) {
+      await knex('ingredients').where('item_id', id).delete()
+
+      const ingredientsToInsert = ingredients.map(ingredient => {
+        return {
+          item_id: id,
+          name: ingredient
+        }
+      })
+
+      await knex('ingredients').insert(ingredientsToInsert)
+    }
 
     return response.json(item)
   }

@@ -19,4 +19,8 @@ export const Container = styled.button`
   &:hover {
     background: ${({ theme }) => theme.COLORS.TOMATO_200};
   }
+  &:disabled {
+    background: ${({ theme }) => theme.COLORS.TOMATO_400};
+    cursor: not-allowed;
+  }
 `

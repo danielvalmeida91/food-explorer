@@ -22,7 +22,6 @@ export function Details(){
   const [ item, setItem ] = useState('');
   const [ ingredients, setIngredients ] = useState('');
   const [ amount, setAmount ] = useState(1);
-  let price = 0;
 
   const navigate = useNavigate();
   const params = useParams();
@@ -47,18 +46,10 @@ export function Details(){
     navigate(-1);
   }
 
-  function handleIncreaseAmount(){
-    setAmount(amount + 1);
-
+  function handleUpdateItem(){
+    navigate(`/updateItem/${item.id}`)
   }
 
-  function handleDecreaseAmount(){
-      if((amount - 1) === 0){
-        setAmount(1);
-      } else{
-        setAmount(amount-1)
-      }
-  }
   return(
     <Container>
       <TextButton onClick={handleBack}>
@@ -98,7 +89,7 @@ export function Details(){
               </Button>
             }
             { user.status === 'admin' &&
-              <Button>
+              <Button onClick={handleUpdateItem}>
                 <p>Editar prato</p>
               </Button>
             }

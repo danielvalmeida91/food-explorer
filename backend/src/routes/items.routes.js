@@ -15,7 +15,7 @@ const itemPicutureController = new ItemPictureController()
 itemsRoutes.use(ensureAuthenticated)
 
 itemsRoutes.post('/', upload.single('picture'), itemsController.create)
-itemsRoutes.put('/:id', itemsController.update)
+itemsRoutes.put('/:id', upload.single('picture'), itemsController.update)
 itemsRoutes.get('/', itemsController.show)
 itemsRoutes.get('/:id', itemsController.index)
 itemsRoutes.delete('/:id', itemsController.delete)
