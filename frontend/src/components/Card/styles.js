@@ -10,11 +10,22 @@ export const Container = styled.div`
 
   text-align: center;
 
+  a,
+  a:visited {
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  }
+
   .actionButton {
     position: absolute;
 
     top: 1.6rem;
     right: 1.6rem;
+
+    font-size: 2rem;
+
+    @media (min-width: 768px) {
+      font-size: 2.8rem;
+    }
   }
 `
 
@@ -89,8 +100,8 @@ export const Item = styled.div`
   }
   @media (min-width: 1440px) {
     img {
-      width: 38.9rem;
-      height: 38.9rem;
+      width: 34rem;
+      height: 34rem;
     }
   }
 `

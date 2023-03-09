@@ -1,13 +1,12 @@
 import { Container, Title, Rights } from './styles'
+import { BsHexagonFill } from 'react-icons/bs'
 
 export function Footer(){
   return(
    <Container>
 
     <Title>
-      <svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11.2304 0L21.8881 6.15327V18.4598L11.2304 24.6131L0.572592 18.4598V6.15327L11.2304 0Z" fill="#4D585E"/>
-      </svg>
+      <BsHexagonFill size={28} fill='#4D585E'/>
       <span>food explorer</span>
     </Title>
     <Rights>

@@ -1,6 +1,6 @@
 import { WrapContainer,Container, InnerContainer, Title } from './styles'
 
-export function Carousel({ children, reference, widthCarousel, category}){
+export function Carouselold({ children, reference, widthCarousel, category}){
 
   return(
     <WrapContainer>

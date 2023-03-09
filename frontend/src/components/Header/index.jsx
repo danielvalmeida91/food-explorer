@@ -1,17 +1,24 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+
+import { FiSearch, FiFileText } from 'react-icons/fi'
+import { VscSignOut } from 'react-icons/vsc'
+import { BsHexagonFill } from 'react-icons/bs'
+import { Spin as Hamburger } from 'hamburger-react'
+
 import { Button } from '../../components/Button'
 import { Container, Title, Orders, OrderNotification, Search, HeaderMenu } from './styles'
 
 import { useAuth } from '../../hooks/auth'
 
 
-export function Header({isMenu = false, openMenu}){
+export function Header( {openMenu}){
 
   const navigate = useNavigate();
+  const [ isOpen, setOpen] = useState(false)
   const [numItems, setNumItems] = useState(0);
-
   const { user, signOut } = useAuth();
+
 
   function handleSignOut(){
     navigate('/');
@@ -22,28 +29,28 @@ export function Header({isMenu = false, openMenu}){
     navigate('/new')
   }
 
-  if(!isMenu){
-    return(
-      <Container>
-        <button id='menu' onClick={openMenu}>
-          <svg  width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M0 1C0 0.447715 0.447715 0 1 0H23C23.5523 0 24 0.447715 24 1C24 1.55228 23.5523 2 23 2H1C0.447715 2 0 1.55228 0 1ZM0 9C0 8.44772 0.447715 8 1 8H23C23.5523 8 24 8.44772 24 9C24 9.55229 23.5523 10 23 10H1C0.447715 10 0 9.55229 0 9ZM0 17C0 16.4477 0.447715 16 1 16H23C23.5523 16 24 16.4477 24 17C24 17.5523 23.5523 18 23 18H1C0.447715 18 0 17.5523 0 17Z" fill="white"/>
-          </svg>
-        </button>
+  function handleMenuShow(){
+    setMenuShow(!menuShow)
+  }
 
+  function handleMenuClose(){
+    setMenuShow(!menuShow)
+  }
+    return(
+
+      <Container>
+        <div id="menu">
+          <Hamburger toggle={setOpen} toggled={isOpen} size={32} />
+        </div>
         <Link to="/">
           <Title>
-            <svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.2304 0L21.8881 6.15327V18.4598L11.2304 24.6131L0.572592 18.4598V6.15327L11.2304 0Z" fill="#065E7C"/>
-            </svg>
+            <BsHexagonFill fill='#065E7C' />
             food explorer<span>{user.status === 'user' ? '' : 'admin'}</span>
           </Title>
         </Link>
 
         <Search id="search">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M3.89499 1.61739C5.22926 0.725854 6.79794 0.25 8.40266 0.25H8.40271C10.5545 0.250137 12.6181 1.105 14.1397 2.62655C15.6613 4.14811 16.5161 6.21174 16.5163 8.36355V8.36359C16.5163 9.96831 16.0404 11.537 15.1489 12.8713C14.9924 13.1054 14.8244 13.3305 14.6456 13.5459L19.5694 18.4697C19.8623 18.7626 19.8623 19.2374 19.5694 19.5303C19.2765 19.8232 18.8016 19.8232 18.5087 19.5303L13.5849 14.6065C12.9626 15.1232 12.263 15.5467 11.5076 15.8596C10.025 16.4737 8.39366 16.6344 6.81978 16.3213C5.24589 16.0082 3.80019 15.2355 2.66548 14.1008C1.53078 12.9661 0.758031 11.5204 0.444967 9.94648C0.131902 8.37259 0.292578 6.74122 0.906677 5.25866C1.52078 3.77609 2.56072 2.50892 3.89499 1.61739ZM8.40261 1.75C7.09458 1.75001 5.81593 2.13789 4.72834 2.86459C3.64074 3.5913 2.79306 4.6242 2.2925 5.83268C1.79193 7.04116 1.66096 8.37093 1.91614 9.65384C2.17133 10.9368 2.80122 12.1152 3.72614 13.0401C4.65107 13.965 5.8295 14.5949 7.11241 14.8501C8.39532 15.1053 9.7251 14.9743 10.9336 14.4738C12.1421 13.9732 13.175 13.1255 13.9017 12.0379C14.6284 10.9503 15.0162 9.67167 15.0163 8.36364M8.40266 1.75C10.1567 1.75012 11.8388 2.44695 13.079 3.68721C14.3193 4.92748 15.0161 6.6096 15.0163 8.36359" fill="#C4C4CC"/>
-          </svg>
+          <FiSearch />
           <input
             type="text"
             placeholder='Busque por pratos ou ingredientes'
@@ -51,17 +58,11 @@ export function Header({isMenu = false, openMenu}){
         </Search>
 
         <Orders id="ordersMobile">
-          <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M8.96094 13C8.96094 12.4477 9.40865 12 9.96094 12H22.9609C23.5132 12 23.9609 12.4477 23.9609 13C23.9609 13.5523 23.5132 14 22.9609 14H9.96094C9.40865 14 8.96094 13.5523 8.96094 13Z" fill="white"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M8.96094 17C8.96094 16.4477 9.40865 16 9.96094 16H22.9609C23.5132 16 23.9609 16.4477 23.9609 17C23.9609 17.5523 23.5132 18 22.9609 18H9.96094C9.40865 18 8.96094 17.5523 8.96094 17Z" fill="white"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M4.04672 5.58579C4.4218 5.21071 4.9305 5 5.46094 5H27.4609C27.9914 5 28.5001 5.21071 28.8751 5.58579C29.2502 5.96086 29.4609 6.46957 29.4609 7V26C29.4609 26.3466 29.2815 26.6684 28.9867 26.8506C28.6918 27.0329 28.3237 27.0494 28.0137 26.8944L24.4609 25.118L20.9081 26.8944C20.6266 27.0352 20.2952 27.0352 20.0137 26.8944L16.4609 25.118L12.9081 26.8944C12.6266 27.0352 12.2952 27.0352 12.0137 26.8944L8.46094 25.118L4.90815 26.8944C4.59816 27.0494 4.23002 27.0329 3.93521 26.8506C3.64039 26.6684 3.46094 26.3466 3.46094 26V7C3.46094 6.46957 3.67165 5.96086 4.04672 5.58579ZM27.4609 7L5.46094 7L5.46094 24.382L8.01372 23.1056C8.29525 22.9648 8.62662 22.9648 8.90815 23.1056L12.4609 24.882L16.0137 23.1056C16.2952 22.9648 16.6266 22.9648 16.9081 23.1056L20.4609 24.882L24.0137 23.1056C24.2952 22.9648 24.6266 22.9648 24.9081 23.1056L27.4609 24.382V7Z" fill="white"/>
-          </svg>
-
+          <FiFileText size={32} />
           <OrderNotification>
             <span>{numItems}</span>
           </OrderNotification>
         </Orders>
-
         {
           user.status === 'user' &&
           (
@@ -75,28 +76,21 @@ export function Header({isMenu = false, openMenu}){
             </Button>
           )
         }
+
         {
-          user.status === 'admin' && <Button className="ordersDesktop" onClick={handleNewItem}>Novo Prato</Button>
+           user.status === 'admin' && <Button className="ordersDesktop" onClick={handleNewItem}>Novo Prato</Button>
         }
 
-        <button id="signOut" onClick={handleSignOut}>
-          <svg  width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22.2891 11.75L27.5391 17M27.5391 17L22.2891 22.25M27.5391 17H13.5391M13.5391 28H6.53906C6.27385 28 6.01949 27.8946 5.83196 27.7071C5.64442 27.5196 5.53906 27.2652 5.53906 27V7C5.53906 6.73478 5.64442 6.48043 5.83196 6.29289C6.01949 6.10536 6.27385 6 6.53906 6H13.5391" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        <VscSignOut size={32} onClick={handleSignOut} id="signOut"/>
 
 
-      </Container>
+      </ Container>
+
     );
-  } else {
-    return(
-      <HeaderMenu>
-        <svg onClick={openMenu} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fillRule="evenodd" clipRule="evenodd" d="M0.263604 0.263604C0.615076 -0.087868 1.18492 -0.087868 1.5364 0.263604L9 7.72721L16.4636 0.263604C16.8151 -0.087868 17.3849 -0.087868 17.7364 0.263604C18.0879 0.615076 18.0879 1.18492 17.7364 1.5364L10.2728 9L17.7364 16.4636C18.0879 16.8151 18.0879 17.3849 17.7364 17.7364C17.3849 18.0879 16.8151 18.0879 16.4636 17.7364L9 10.2728L1.5364 17.7364C1.18492 18.0879 0.615076 18.0879 0.263604 17.7364C-0.087868 17.3849 -0.087868 16.8151 0.263604 16.4636L7.72721 9L0.263604 1.5364C-0.087868 1.18492 -0.087868 0.615076 0.263604 0.263604Z" fill="white"/>
-        </svg>
-        <h2>Menu</h2>
-      </HeaderMenu>
-    )
+    // return(
+    //   <HeaderMenu>
+    //     <Hamburger toggle={handleMenuShow} toggled={handleMenuClose}/>
+    //     <h2>Menu</h2>
+    //   </HeaderMenu>
+    // )
   }
-
-}

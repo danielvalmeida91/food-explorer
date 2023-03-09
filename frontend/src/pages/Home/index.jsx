@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import {
   Container,
   Content,
@@ -8,57 +7,53 @@ import {
 } from './styles'
 
 import { Card } from '../../components/Card'
-import { Carousel } from '../../components/Carousel'
+import { CarouselItems } from '../../components/CarouselItems'
+
+// import Carousel from '@itseasy21/react-elastic-carousel'
 
 import { useAuth } from '../../hooks/auth'
 import { api } from '../../services/api'
 
 import imgBannerDesktop from './../../assets/splash-home2.png'
 
-import imgCard from './../../assets/salada-ravanello.png'
 
 
 export function Home(){
-  const windowWidth = useRef(window.innerWidth)
-  const carousel = useRef();
-  const navigate = useNavigate();
   const { user } = useAuth();
-  const [ items, setItems ] = useState("")
-  const [ categories, setCategories ] = useState("")
-  const [ ingredients, setIngredients ] = useState("")
+  const [ drinks, setDrinks ] = useState([])
+  const [ desserts, setDesserts ] = useState([])
+  const [ meals, setMeals ] = useState([])
+  const [ items , setItems ] = useState([])
 
+  const breakPoints = [
+    { width: 1 , itemsToShow: 1},
+    { width: 425 , itemsToShow: 2},
+    { width: 1024 , itemsToShow: 3},
+    { width: 1440 , itemsToShow: 4}
+  ]
 
-
-  const [ widthCarousel, setWidthCarousel ] = useState(0)
-  const [menuMobile, setMenuMobile] = useState(false)
-
-  useEffect(() => {
-    setWidthCarousel(carousel.current?.scrollWidth - carousel.current?.offsetWidth)
-  }, [carousel.current?.offsetWidth])
 
   useEffect(() => {
     async function fetchItems(){
-      const response = await api.get('/items')
-      setItems(response.data)
+      await api.get('/items')
+      .then(
+          response => setItems(response.data)
+      )
     }
-
     fetchItems()
-  }, [])
+    filterItems()
+  }, [items])
 
-  useEffect(() => {
-    async function fetchCategories(){
-      const responseCategories = await api.get('/categories')
-      setCategories(responseCategories.data)
-    }
+  function filterItems(){
+    const filteredDrinks = items.filter( item => item.category === 'Bebidas' )
+    setDrinks(filteredDrinks)
 
-    fetchCategories()
-  }, [])
+    const filteredDesserts = items.filter( item => item.category === 'Sobremesas')
+    setDesserts(filteredDesserts)
 
-  function openMenu(){
-    setMenuMobile(menuMobile ? false : true);
+    const filteredMeals = items.filter( item => item.category === 'Refeições')
+    setMeals(filteredMeals)
   }
-
-
 
   return(
     <Container>
@@ -71,31 +66,58 @@ export function Home(){
           </BannerTitle>
         </Banner>
 
-        {
-          categories &&
-          categories.map( category => (
-            <Carousel
-            key={category.category}
-            reference={carousel}
-            widthCarousel={widthCarousel}
-            category={category.category}>
-            { items &&
-            items.map( item =>
-              item.category === category.category ?
+        <CarouselItems title='Refeições'>
+          {
+            meals &&
+            meals.map( meal =>
               <Card
-                key={item.id}
+                key={meal.id}
                 userStatus={user.status}
-                itemRoute={`/items/${item.id}`}
-                itemImg={item.picture ? `${api.defaults.baseURL}/files/${item.picture}` : ''}
-                itemName={item.name}
-                itemDescription={item.description}
-                itemPrice={item.price}
+                itemRoute={`/items/${meal.id}`}
+                itemEditRoute={`/updateItem/${meal.id}`}
+                itemImg={meal.picture ? `${api.defaults.baseURL}/files/${meal.picture}` : ''}
+                itemName={meal.name}
+                itemDescription={meal.description}
+                itemPrice={meal.price}
               />
-              : ''
-            )}
-          </Carousel>
-          ))
+            )
         }
+        </CarouselItems>
+
+        <CarouselItems title='Bebidas'>
+          {
+            drinks &&
+            drinks.map( drink =>
+              <Card
+                key={drink.id}
+                userStatus={user.status}
+                itemRoute={`/items/${drink.id}`}
+                itemImg={drink.picture ? `${api.defaults.baseURL}/files/${drink.picture}` : ''}
+                itemName={drink.name}
+                itemDescription={drink.description}
+                itemPrice={drink.price}
+              />
+            )
+        }
+        </CarouselItems>
+
+        <CarouselItems title='Sobremesas'>
+          {
+            desserts &&
+            desserts.map( dessert =>
+              <Card
+              key={dessert.id}
+              userStatus={user.status}
+              itemRoute={`/items/${dessert.id}`}
+              itemImg={dessert.picture ? `${api.defaults.baseURL}/files/${dessert.picture}` : ''}
+              itemName={dessert.name}
+              itemDescription={dessert.description}
+              itemPrice={dessert.price}
+            />
+            )
+        }
+        </CarouselItems>
+
       </Content>
     </Container>
   );

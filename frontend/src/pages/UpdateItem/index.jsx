@@ -101,25 +101,15 @@ export function UpdateItem(){
 
 
     api.put(`/items/${id}`, itemUpdated).then( () => {
-      alert('Item cadastrado com sucesso!')
+      alert('Item atualizado com sucesso!')
       navigate(-1)
     }).catch(error => {
       if(error.response){
         alert(error.response.data.message)
       } else {
-        alert('Não foi possível realizar o cadastro.')
+        alert('Não foi possível realizar a atualização.')
       }
     })
-  }
-
-  function isFormValid(){
-    return (
-      name &&
-      category &&
-      ingredients.length > 0 &&
-      price &&
-      description
-    )
   }
 
   return(

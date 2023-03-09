@@ -1,20 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  /* width: 100%;
   height: 100%;
-  margin: 0 auto;
-  overflow-x: hidden;
-
-
-  display: grid;
-  grid-template-rows: 11.4rem auto 7.7rem;
-  grid-template-areas:
-    'header'
-    'content'
-    'footer'; */
-  height: 100%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   background: ${({ theme }) => theme.COLORS.DARK_400};
   overflow-x: hidden;
 `
