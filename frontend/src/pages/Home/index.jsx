@@ -9,8 +9,6 @@ import {
 import { Card } from '../../components/Card'
 import { CarouselItems } from '../../components/CarouselItems'
 
-// import Carousel from '@itseasy21/react-elastic-carousel'
-
 import { useAuth } from '../../hooks/auth'
 import { api } from '../../services/api'
 
@@ -24,13 +22,6 @@ export function Home(){
   const [ desserts, setDesserts ] = useState([])
   const [ meals, setMeals ] = useState([])
   const [ items , setItems ] = useState([])
-
-  const breakPoints = [
-    { width: 1 , itemsToShow: 1},
-    { width: 425 , itemsToShow: 2},
-    { width: 1024 , itemsToShow: 3},
-    { width: 1440 , itemsToShow: 4}
-  ]
 
 
   useEffect(() => {
@@ -94,6 +85,7 @@ export function Home(){
                 itemRoute={`/items/${drink.id}`}
                 itemImg={drink.picture ? `${api.defaults.baseURL}/files/${drink.picture}` : ''}
                 itemName={drink.name}
+                itemEditRoute={`/updateItem/${drink.id}`}
                 itemDescription={drink.description}
                 itemPrice={drink.price}
               />
@@ -111,6 +103,7 @@ export function Home(){
               itemRoute={`/items/${dessert.id}`}
               itemImg={dessert.picture ? `${api.defaults.baseURL}/files/${dessert.picture}` : ''}
               itemName={dessert.name}
+              itemEditRoute={`/updateItem/${dessert.id}`}
               itemDescription={dessert.description}
               itemPrice={dessert.price}
             />

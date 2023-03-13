@@ -6,7 +6,7 @@ export const Container = styled.div`
 
   padding: 1.6rem 3.2rem 3.4rem;
 
-  position: relative;
+  /* position: relative; */
 
   display: flex;
   /* justify-content: center; */
@@ -112,13 +112,22 @@ export const Form = styled.form`
   width: 100%;
   height: 100%;
 
+  position: relative;
+
   display: grid;
   justify-content: center;
   align-items: center;
   gap: 2.4rem;
 
   max-width: 36.4rem;
+
   margin: 0 auto;
+
+  .back {
+    position: absolute;
+    top: -3rem;
+    left: -1rem;
+  }
 
   grid-template-areas:
     'title'
@@ -187,6 +196,11 @@ export const Form = styled.form`
 
     padding: 2.4rem 12.5rem 0;
 
+    .back {
+      top: 0;
+      left: 0;
+    }
+
     grid-template-areas:
       'title title title'
       'upload name category'
@@ -201,6 +215,7 @@ export const Form = styled.form`
   }
 
   @media (min-width: 1440px) {
+    max-width: 1368px;
   }
 `
 export const Input = styled.input`

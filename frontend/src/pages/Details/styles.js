@@ -4,6 +4,8 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 
+  margin: 0 auto;
+
   padding: 1.6rem 5.6rem 3.4rem;
 
   display: flex;

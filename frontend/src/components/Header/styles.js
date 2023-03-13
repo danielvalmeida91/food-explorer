@@ -3,17 +3,42 @@ import styled from 'styled-components'
 export const Container = styled.div`
   width: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  display: grid;
+  /* align-items: center; */
+
+  grid-template-areas: 'menu info';
 
   padding: 2.4rem 2.8rem 2.4rem 2.8rem;
 
   grid-area: header;
+  position: relative;
 
   background: ${({ theme }) => theme.COLORS.DARK_700};
 
-  > .ordersDesktop,
+  h2 {
+    font: ${({ theme }) => theme.FONTS.ROBOTO_BIGGEST};
+    font-size: 2.2rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  }
+
+  .menu-false {
+    display: none;
+  }
+
+  .menu-true {
+    display: flex;
+    animation: showMenu 1s;
+  }
+
+  .menu-mobile {
+    animation: showMenu 1s;
+  }
+
+  #menu {
+    grid-area: menu;
+  }
+
+  .ordersDesktop,
   #signOut {
     display: none;
   }
@@ -25,25 +50,36 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1440px) {
-    > #menu,
+    grid-template-areas: 'info';
+
+    padding: 2.4rem 12.3rem;
+
+    #menu,
     #ordersMobile {
       display: none;
     }
-    > #search {
+    #search {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1.4rem;
     }
 
-    > .ordersDesktop {
+    .ordersDesktop {
       display: flex;
     }
 
-    > #signOut {
+    #signOut {
       display: initial;
     }
   }
+`
+
+export const WrapperInfo = styled.div`
+  grid-area: info;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 export const Title = styled.div`
@@ -128,5 +164,66 @@ export const HeaderMenu = styled.div`
   > h2 {
     font: ${({ theme }) => theme.FONTS.ROBOTO_SMALL};
     font-size: 2.16rem;
+  }
+`
+
+export const Modal = styled.div`
+  width: 100%;
+
+  height: 100vh;
+  top: 11.4rem;
+  bottom: 7.7rem;
+
+  background: ${({ theme }) => theme.COLORS.DARK_700};
+
+  position: absolute;
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  #search {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 10rem;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .result {
+    width: 100%;
+    display: flex;
+  }
+
+  a,
+  a:visited {
+    font: ${({ theme }) => theme.FONTS.POPPINS100_REGULAR};
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+  }
+
+  @keyframes showMenu {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes hideMenu {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
   }
 `

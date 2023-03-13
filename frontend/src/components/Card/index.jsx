@@ -6,26 +6,20 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2'
 import { AiOutlineHeart } from 'react-icons/ai'
 
 import { ButtonSmall } from '../ButtonSmall'
-import { TextButton } from '../TextButton'
 import { Amount } from '../Amount'
 
-export function Card({ itemImg, itemName, itemPrice, itemDescription,itemRoute, userStatus, itemEditRoute,...rest}){
-
-  const params = useParams();
+export function Card({ itemImg, itemName, itemPrice, itemDescription,itemRoute, userStatus, itemEditRoute, fnShowItem, fnEditItem}){
 
   itemPrice = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
   }).format(itemPrice);
 
-
-
-
   return(
-    <Container>
+    <Container >
       {userStatus === 'user' &&
         (<Item>
-          <Link to={itemRoute} >
+          <Link to={itemRoute} onClick={fnShowItem}>
             <img src={itemImg}/>
           </Link>
           <p className='itemName'>{itemName}</p>
@@ -41,14 +35,14 @@ export function Card({ itemImg, itemName, itemPrice, itemDescription,itemRoute, 
       }
       {userStatus === 'admin' &&
         (<Item>
-          <Link to={itemRoute} >
+          <Link to={itemRoute} onClick={fnShowItem}>
             <img src={itemImg}/>
           </Link>
           <p className='itemName'>{itemName}</p>
           <p className='itemDescription'>{itemDescription}</p>
           <span>{itemPrice}</span>
           <Link to={itemEditRoute}>
-            <HiOutlinePencilSquare className='actionButton'/>
+            <HiOutlinePencilSquare className='actionButton' onClick={fnEditItem}/>
           </Link>
         </Item>)
       }

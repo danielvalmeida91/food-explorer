@@ -58,7 +58,6 @@ class ItemsController {
       filename = await diskStorage.saveFile(picture)
     }
 
-    // return console.log(item, filename)
     await knex('items').where({ id }).update({
       name,
       price,
@@ -83,13 +82,20 @@ class ItemsController {
     return response.json(item)
   }
 
-  async show(request, response) {
-    const item = await knex('items')
+  async index(request, response) {
+    const { name } = request.query
 
-    return response.json(item)
+    let result
+
+    if (name) {
+      result = await knex('items').whereLike('items.name', `%${name}%`)
+    } else {
+      result = await knex('items')
+    }
+    return response.json(result)
   }
 
-  async index(request, response) {
+  async show(request, response) {
     const { id } = request.params
 
     const item = await knex('items').where('id', id).first()

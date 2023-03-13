@@ -16,8 +16,8 @@ itemsRoutes.use(ensureAuthenticated)
 
 itemsRoutes.post('/', upload.single('picture'), itemsController.create)
 itemsRoutes.put('/:id', upload.single('picture'), itemsController.update)
-itemsRoutes.get('/', itemsController.show)
-itemsRoutes.get('/:id', itemsController.index)
+itemsRoutes.get('/', itemsController.index)
+itemsRoutes.get('/:id', itemsController.show)
 itemsRoutes.delete('/:id', itemsController.delete)
 itemsRoutes.patch(
   '/picture',

@@ -112,10 +112,30 @@ export function UpdateItem(){
     })
   }
 
+  const handleDelete = () => {
+    try {
+      const deleteConfirmation = confirm('Deseja mesmo deletar este item?')
+      if(!deleteConfirmation) {
+        return
+      }
+
+      api.delete(`/items/${id}`).then( () => {
+        alert('Item deletado com sucesso')
+        navigate('/')
+      })
+    } catch (err) {
+      if(err.response){
+        alert(err.response.data.message)
+      } else {
+        alert('Não foi possível realizar a exclusão do item.')
+      }
+
+    }
+  }
+
   return(
     <Container>
-      <ThrowBack />
-
+      <ThrowBack className='back'/>
       <Form>
         <h1 id="title">Editar prato</h1>
 
@@ -195,7 +215,7 @@ export function UpdateItem(){
         </div>
 
         <div id="buttons">
-          <button id='delete'>Excluir item</button>
+          <button id='delete' type='button' onClick={handleDelete}>Excluir item</button>
           <Button id='submit' type='button' onClick={handleSubmit}>
             Salvar alterações
           </Button>
