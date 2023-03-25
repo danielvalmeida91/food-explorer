@@ -4,7 +4,6 @@ export const Container = styled.div`
   width: 100%;
 
   display: grid;
-  /* align-items: center; */
 
   grid-template-areas: 'menu info';
 
@@ -58,7 +57,8 @@ export const Container = styled.div`
     #ordersMobile {
       display: none;
     }
-    #search {
+
+    .search {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -80,6 +80,17 @@ export const WrapperInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+
+  .modal {
+    position: absolute;
+    z-index: 9999;
+    top: calc(100% + 8px);
+    width: 100%;
+
+    background: ${({ theme }) => theme.COLORS.DARK_400};
+    display: flex;
+  }
 `
 
 export const Title = styled.div`
@@ -182,11 +193,13 @@ export const Modal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  #search {
+  .search {
     display: flex;
     align-items: center;
     gap: 0.8rem;
     margin-bottom: 10rem;
+
+    position: relative;
   }
 
   .links {
@@ -194,9 +207,10 @@ export const Modal = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 1.4rem;
+    margin-top: 2.8rem;
   }
 
-  .result {
+  .modal-menu {
     width: 100%;
     display: flex;
   }
@@ -215,15 +229,6 @@ export const Modal = styled.div`
     }
     100% {
       transform: translateX(0%);
-    }
-  }
-
-  @keyframes hideMenu {
-    0% {
-      width: 100%;
-    }
-    100% {
-      width: 0%;
     }
   }
 `

@@ -7,8 +7,8 @@ import { BsHexagonFill } from 'react-icons/bs'
 import { Spin as Hamburger } from 'hamburger-react'
 
 import { Button } from '../../components/Button'
-import { Card } from '../../components/Card'
-import { CarouselItems } from '../../components/CarouselItems'
+import { CarouselItems } from '../CarouselItems'
+import { SearchCard } from '../../components/SearchCard'
 import { Container, Title, Orders, OrderNotification, Search, WrapperInfo, Modal } from './styles'
 
 import { useAuth } from '../../hooks/auth'
@@ -20,12 +20,18 @@ export function Header(){
   const navigate = useNavigate();
   const [ isOpen, setOpen] = useState(false)
   const [ search, setSearch] = useState('')
+  const [ isTyping, setIsTyping ] = useState(false)
   const [ queryItems, setQueryItems ] = useState([])
   const [numItems, setNumItems] = useState(0);
   const { user, signOut } = useAuth();
 
-
-
+  const breakPoints = [
+    { width: 1 , itemsToShow: 1},
+    { width: 425 , itemsToShow: 3},
+    { width: 768 , itemsToShow: 3},
+    { width: 1024 , itemsToShow: 5},
+    { width: 1440 , itemsToShow: 8}
+  ]
 
   function handleNewItem(){
     navigate('/new')
@@ -33,6 +39,11 @@ export function Header(){
 
   function handleCloseMenu(){
     setOpen(!isOpen)
+  }
+
+  function handleMouseDown(event){
+    event.preventDefault();
+    setIsTyping(true)
   }
 
   useEffect(()=> {
@@ -55,14 +66,13 @@ export function Header(){
   },[search])
 
   return(
-
     <Container>
       <div id="menu">
         <Hamburger toggle={setOpen} toggled={isOpen} size={32} id="menu-icon"/>
       </div>
 
       <Modal className={`menu-${isOpen}`}>
-        <Search id="search">
+        <Search className="search">
           <FiSearch />
           <input
             type="text"
@@ -71,22 +81,17 @@ export function Header(){
           />
         </Search>
 
-        <div className="result">
-          <CarouselItems title=''>
+        <div className="modal-menu">
+          <CarouselItems title=''  breakPoints={breakPoints} >
           {
             queryItems &&
             queryItems.map( queryItem =>
-              <Card
+              <SearchCard
                 key={queryItem.id}
-                userStatus={user.status}
+                onClick={handleCloseMenu}
                 itemRoute={`/items/${queryItem.id}`}
-                itemEditRoute={`/updateItem/${queryItem.id}`}
-                fnEditItem={handleCloseMenu}
-                fnShowItem={handleCloseMenu}
                 itemImg={queryItem.picture ? `${api.defaults.baseURL}/files/${queryItem.picture}` : ''}
                 itemName={queryItem.name}
-                itemDescription={queryItem.description}
-                itemPrice={queryItem.price}
               />
             )
           }
@@ -116,13 +121,34 @@ export function Header(){
             </Title>
           </Link>
 
-          <Search id="search">
+          <Search className="search">
             <FiSearch />
             <input
               type="text"
               placeholder='Busque por pratos ou ingredientes'
+              onChange={(e) => setSearch(e.target.value)}
+              onFocus={() => setIsTyping(true)}
+              onBlur={() => setIsTyping(false)}
             />
           </Search>
+          <div className="modal" onMouseDown={handleMouseDown}>
+            {
+              isTyping &&
+              <CarouselItems title='' breakPoints={breakPoints} >
+                {
+                  queryItems &&
+                  queryItems.map( queryItem =>
+                    <SearchCard
+                      key={queryItem.id}
+                      itemRoute={`/items/${queryItem.id}`}
+                      itemImg={queryItem.picture ? `${api.defaults.baseURL}/files/${queryItem.picture}` : ''}
+                      itemName={queryItem.name}
+                    />
+                  )
+                }
+              </CarouselItems>
+            }
+          </div>
 
           <Orders id="ordersMobile">
             <FiFileText size={32} />
@@ -147,20 +173,15 @@ export function Header(){
           {
               user.status === 'admin' && <Button className="ordersDesktop" onClick={handleNewItem}>Novo Prato</Button>
           }
-
           <VscSignOut size={32} onClick={signOut} id="signOut"/>
         </WrapperInfo>
       }
-
       {
         isOpen &&
         <WrapperInfo className='menu-mobile'>
           <h2>Menu</h2>
         </WrapperInfo>
       }
-
-
     </ Container>
-
   );
   }

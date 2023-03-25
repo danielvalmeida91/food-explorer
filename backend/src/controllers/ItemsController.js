@@ -41,6 +41,7 @@ class ItemsController {
     const picWasUpdated = request.body.picStatus
     const { name, description, price, category, ingredients } = JSON.parse(data)
     const { id } = request.params
+    // const updated_at = knex.fn.now()
 
     const item = await knex('items').where('id', id).first()
 
@@ -63,7 +64,8 @@ class ItemsController {
       price,
       description,
       category,
-      picture: filename
+      picture: filename,
+      updated_at: knex.fn.now()
     })
 
     if (ingredients) {

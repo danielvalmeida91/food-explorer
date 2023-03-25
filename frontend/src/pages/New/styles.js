@@ -2,14 +2,13 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
 
   padding: 1.6rem 3.2rem 3.4rem;
 
   position: relative;
 
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
 
   flex-direction: column;
 
@@ -20,7 +19,6 @@ export const Container = styled.div`
 
   .ingredients {
     display: flex;
-    /* align-items: center; */
     justify-content: flex-start;
     flex-wrap: wrap;
 
@@ -86,10 +84,12 @@ export const Container = styled.div`
   }
 
   .file-label {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     padding: 1.2rem 0 1.2rem 3.2rem;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 0.8rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     background: ${({ theme }) => theme.COLORS.DARK_800};
 
@@ -99,23 +99,12 @@ export const Container = styled.div`
   input[type='file'] {
     display: none;
   }
-
-  input[type='file'] + .file-label::before {
-    content: url('src/assets/upload-file.svg');
-    margin-right: 0.8rem;
-  }
-
-  input[type='file'] + .file-label::after {
-    content: 'Selecionar imagem';
-  }
 `
 export const Form = styled.form`
   width: 100%;
-  height: 100%;
 
   display: grid;
   justify-content: center;
-  align-items: center;
   gap: 2.4rem;
 
   max-width: 36.4rem;
@@ -138,29 +127,41 @@ export const Form = styled.form`
     display: grid;
     grid-area: title;
   }
+
   #upload {
-    display: grid;
+    display: flex;
     grid-area: upload;
+    align-items: flex-end;
   }
+
+  #upload label {
+    height: 4.8rem;
+  }
+
   #name {
     display: grid;
     grid-area: name;
+    gap: 1rem;
   }
   #category {
     display: grid;
     grid-area: category;
+    gap: 1rem;
   }
   #ingredients {
     display: grid;
     grid-area: ingredients;
+    gap: 1rem;
   }
   #price {
     display: grid;
     grid-area: price;
+    gap: 1rem;
   }
   #description {
     display: grid;
     grid-area: description;
+    gap: 1rem;
   }
   #submit {
     display: grid;
@@ -180,12 +181,9 @@ export const Form = styled.form`
       'description description description'
       '_blank _blank submit';
   }
-
-  @media (min-width: 1440px) {
-  }
 `
 export const Input = styled.input`
-  /* width: 100%; */
+  width: 100%;
   height: 4.8rem;
 
   padding: 1.6rem 1.4rem;

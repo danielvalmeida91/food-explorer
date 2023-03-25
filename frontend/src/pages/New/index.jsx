@@ -1,3 +1,4 @@
+import { FiUpload } from 'react-icons/fi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Form, Input} from './styles'
@@ -70,8 +71,6 @@ export function New(){
     })
   }
 
-
-
   function isFormValid(){
     return (
       name &&
@@ -81,6 +80,7 @@ export function New(){
       description
     )
   }
+
   return(
     <Container>
       <ThrowBack />
@@ -95,7 +95,9 @@ export function New(){
             name="picture"
             onChange={handleSelectImage}
           />
-          <label htmlFor="picture" className="file-label" />
+          <label htmlFor="picture" className="file-label">
+            <FiUpload size={24} /> Selecionar Imagem
+          </label>
         </div>
 
 

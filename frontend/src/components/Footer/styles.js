@@ -27,5 +27,9 @@ export const Title = styled.div`
 `
 
 export const Rights = styled.div`
-  font: 400 1.2rem 'DM Sans';
+  font: 400 1.2rem 'Roboto';
+
+  @media (min-width: 1368px) {
+    font-size: 1.4rem;
+  }
 `

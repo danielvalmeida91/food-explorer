@@ -12,7 +12,7 @@ import { CarouselItems } from '../../components/CarouselItems'
 import { useAuth } from '../../hooks/auth'
 import { api } from '../../services/api'
 
-import imgBannerDesktop from './../../assets/splash-home2.png'
+import imgBannerDesktop from './../../assets/splash-home.png'
 
 
 
@@ -22,6 +22,13 @@ export function Home(){
   const [ desserts, setDesserts ] = useState([])
   const [ meals, setMeals ] = useState([])
   const [ items , setItems ] = useState([])
+
+  const breakPoints = [
+    { width: 1 , itemsToShow: 1},
+    { width: 425 , itemsToShow: 2},
+    { width: 1024 , itemsToShow: 3},
+    { width: 1440 , itemsToShow: 4}
+  ]
 
 
   useEffect(() => {
@@ -57,7 +64,7 @@ export function Home(){
           </BannerTitle>
         </Banner>
 
-        <CarouselItems title='Refeições'>
+        <CarouselItems title='Refeições' breakPoints={breakPoints}>
           {
             meals &&
             meals.map( meal =>
@@ -75,7 +82,7 @@ export function Home(){
         }
         </CarouselItems>
 
-        <CarouselItems title='Bebidas'>
+        <CarouselItems title='Bebidas'  breakPoints={breakPoints}>
           {
             drinks &&
             drinks.map( drink =>
@@ -93,7 +100,7 @@ export function Home(){
         }
         </CarouselItems>
 
-        <CarouselItems title='Sobremesas'>
+        <CarouselItems title='Sobremesas' breakPoints={breakPoints}>
           {
             desserts &&
             desserts.map( dessert =>

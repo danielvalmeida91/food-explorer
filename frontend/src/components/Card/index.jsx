@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Container, Item, Controls } from './styles'
 
 import { HiOutlinePencilSquare } from 'react-icons/hi2'

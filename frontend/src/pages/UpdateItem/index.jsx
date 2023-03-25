@@ -1,3 +1,4 @@
+import { FiUpload } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Container, Form, Input} from './styles'
@@ -57,7 +58,6 @@ export function UpdateItem(){
     fetchItem();
     fetchIngredients();
   }, [])
-
 
   function handleAddIngredient(){
     setIngredients( prevState => [...prevState, newIngredient])
@@ -146,7 +146,9 @@ export function UpdateItem(){
             name="picture"
             onChange={handleSelectImage}
           />
-          <label htmlFor="picture" className="file-label" />
+          <label htmlFor="picture" className="file-label">
+            <FiUpload size={24} /> Selecionar Imagem
+          </label>
         </div>
 
 

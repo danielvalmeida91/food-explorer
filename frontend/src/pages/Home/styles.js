@@ -23,7 +23,7 @@ export const Content = styled.div`
 
 export const Banner = styled.div`
   background: ${({ theme }) => theme.COLORS.GRADIENT_200};
-  border-radius: 0.292rem;
+  border-radius: 0rem;
 
   width: 90vw;
   height: 12rem;
@@ -101,9 +101,11 @@ export const Banner = styled.div`
     }
   }
 
-  @media (min-width: 1440px) {
-    max-width: 112rem;
+  @media (min-width: 1368px) {
+    max-width: 85vw;
     height: 26rem;
+
+    justify-content: space-between;
 
     grid-template-columns: 41.2rem auto;
 
@@ -111,12 +113,15 @@ export const Banner = styled.div`
     > img {
       width: 58.6rem;
       height: 41.2rem;
-      bottom: -1.4rem;
-      left: -20rem;
+      /* bottom: -1.4rem;
+      left: -20rem; */
     }
 
     > div {
       width: 42.2rem;
+      box-sizing: content-box;
+
+      padding-right: 10rem;
 
       > p {
         font: ${({ theme }) => theme.FONTS.POPPINS500_MEDIUM};

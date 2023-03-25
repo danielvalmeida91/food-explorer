@@ -6,10 +6,7 @@ export const Container = styled.div`
 
   padding: 1.6rem 3.2rem 3.4rem;
 
-  /* position: relative; */
-
   display: flex;
-  /* justify-content: center; */
 
   flex-direction: column;
 
@@ -35,6 +32,7 @@ export const Container = styled.div`
   > button {
     padding: 1.2rem 0 1.2rem 3.2rem;
     background: ${({ theme }) => theme.COLORS.DARK_800};
+    border-radius: 0.5rem;
     border: none;
 
     display: flex;
@@ -51,7 +49,7 @@ export const Container = styled.div`
   select {
     padding: 1.3rem 1.6rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
-    background: ${({ theme }) => theme.COLORS.DARK_900};
+    background: ${({ theme }) => theme.COLORS.DARK_800};
 
     border: none;
     border-radius: 0.5rem;
@@ -85,7 +83,9 @@ export const Container = styled.div`
   }
 
   .file-label {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     padding: 1.2rem 0 1.2rem 3.2rem;
     cursor: pointer;
     border-radius: 4px;
@@ -98,25 +98,14 @@ export const Container = styled.div`
   input[type='file'] {
     display: none;
   }
-
-  input[type='file'] + .file-label::before {
-    content: url('../../../src/assets/upload-file.svg');
-    margin-right: 0.8rem;
-  }
-
-  input[type='file'] + .file-label::after {
-    content: 'Selecionar imagem para alterá-la';
-  }
 `
 export const Form = styled.form`
   width: 100%;
-  height: 100%;
 
   position: relative;
 
   display: grid;
   justify-content: center;
-  align-items: center;
   gap: 2.4rem;
 
   max-width: 36.4rem;
@@ -146,30 +135,47 @@ export const Form = styled.form`
     display: grid;
     grid-area: title;
   }
+
   #upload {
-    display: grid;
+    display: flex;
     grid-area: upload;
+    align-items: flex-end;
   }
+
+  #upload label {
+    height: 4.8rem;
+  }
+
   #name {
     display: grid;
     grid-area: name;
+    gap: 1rem;
   }
+
   #category {
     display: grid;
     grid-area: category;
+    gap: 1rem;
   }
+
   #ingredients {
     display: grid;
     grid-area: ingredients;
+    gap: 1rem;
   }
+
   #price {
     display: grid;
     grid-area: price;
+    gap: 1rem;
   }
+
   #description {
     display: grid;
     grid-area: description;
+    gap: 1rem;
   }
+
   #buttons {
     display: flex;
     align-items: center;
@@ -219,7 +225,6 @@ export const Form = styled.form`
   }
 `
 export const Input = styled.input`
-  /* width: 100%; */
   height: 4.8rem;
 
   padding: 1.6rem 1.4rem;
