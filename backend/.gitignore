@@ -1,3 +1,4 @@
 node_modules
 info.md
 ./src/database/sqlite/
+.env
