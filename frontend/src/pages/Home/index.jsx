@@ -30,7 +30,6 @@ export function Home(){
     { width: 1440 , itemsToShow: 4}
   ]
 
-
   useEffect(() => {
     async function fetchItems(){
       await api.get('/items')
