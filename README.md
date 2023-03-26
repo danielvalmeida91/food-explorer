@@ -26,6 +26,11 @@ npm install
 - [Axios](https://axios-http.com/ptbr/docs/urlencoded)
 - [PM2](https://pm2.keymetrics.io/)
 
+## Next steps
+
+- Orders
+- Payments
+
 ## Deploy
 
 - [Front End](https://www.netlify.com/)
