@@ -16,6 +16,15 @@
 npm install
 ```
 
+### Wanna try locally ?
+
+Try change api.js
+```bash
+export const api = axios.create({
+  baseURL: 'http://localhost:3333'
+})
+```
+
 ## Technologies
 
 - [React](https://pt-br.reactjs.org/)
